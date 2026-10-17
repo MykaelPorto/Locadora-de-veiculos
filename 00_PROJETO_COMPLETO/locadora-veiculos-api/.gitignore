@@ -1,0 +1,24 @@
+# Ambiente virtual
+venv/
+.venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Banco de dados local (é recriado com `alembic upgrade head`)
+*.db
+*.sqlite3
+
+# Variáveis de ambiente locais
+.env
+
+# Editores / sistema
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# IMPORTANTE: a pasta alembic/versions/ NÃO é ignorada — as migrações devem ir para o repositório.

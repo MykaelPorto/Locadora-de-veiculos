@@ -1,0 +1,67 @@
+// Diagrama Entidade-Relacionamento da Locadora de Veículos
+// Para regenerar a imagem: dot -Tpng -Gdpi=160 docs/diagrama_entidades.dot -o docs/diagrama_entidades.png
+digraph ER {
+    graph [rankdir=LR, bgcolor="white", pad="0.4", nodesep="0.9", ranksep="1.1", fontname="Helvetica"];
+    node  [shape=plain, fontname="Helvetica", fontsize=11];
+    edge  [fontname="Helvetica", fontsize=11, color="#555555", penwidth=1.4, dir=both, arrowtail=tee, arrowhead=crow];
+
+    categorias [label=<
+      <table border="0" cellborder="1" cellspacing="0" cellpadding="5" color="#2F5D8A">
+        <tr><td bgcolor="#2F5D8A" colspan="3"><font color="white"><b>categorias</b></font></td></tr>
+        <tr><td><b>PK</b></td><td align="left">id</td><td port="pk" align="left">int</td></tr>
+        <tr><td>UK</td><td align="left">nome</td><td align="left">varchar(50)</td></tr>
+        <tr><td></td><td align="left">descricao</td><td align="left">text</td></tr>
+        <tr><td></td><td align="left">valor_diaria</td><td align="left">numeric(10,2)</td></tr>
+        <tr><td></td><td align="left">criado_em / atualizado_em</td><td align="left">datetime</td></tr>
+      </table>>];
+
+    veiculos [label=<
+      <table border="0" cellborder="1" cellspacing="0" cellpadding="5" color="#2E7D5B">
+        <tr><td bgcolor="#2E7D5B" colspan="3"><font color="white"><b>veiculos</b></font></td></tr>
+        <tr><td><b>PK</b></td><td align="left">id</td><td port="pk" align="left">int</td></tr>
+        <tr><td>UK</td><td align="left">placa</td><td align="left">varchar(7)</td></tr>
+        <tr><td></td><td align="left">marca / modelo</td><td align="left">varchar(50)</td></tr>
+        <tr><td></td><td align="left">ano</td><td align="left">int</td></tr>
+        <tr><td></td><td align="left">cor</td><td align="left">varchar(30)</td></tr>
+        <tr><td></td><td align="left">quilometragem</td><td align="left">int</td></tr>
+        <tr><td></td><td align="left">status</td><td align="left">disponivel | alugado | manutencao</td></tr>
+        <tr><td port="fk_categoria" bgcolor="#FFF4D6"><b>FK</b></td><td align="left" bgcolor="#FFF4D6">categoria_id</td><td align="left" bgcolor="#FFF4D6">int → categorias.id</td></tr>
+        <tr><td></td><td align="left">criado_em / atualizado_em</td><td align="left">datetime</td></tr>
+      </table>>];
+
+    clientes [label=<
+      <table border="0" cellborder="1" cellspacing="0" cellpadding="5" color="#7A4E9E">
+        <tr><td bgcolor="#7A4E9E" colspan="3"><font color="white"><b>clientes</b></font></td></tr>
+        <tr><td><b>PK</b></td><td align="left">id</td><td port="pk" align="left">int</td></tr>
+        <tr><td></td><td align="left">nome</td><td align="left">varchar(120)</td></tr>
+        <tr><td>UK</td><td align="left">cpf</td><td align="left">varchar(11)</td></tr>
+        <tr><td>UK</td><td align="left">email</td><td align="left">varchar(120)</td></tr>
+        <tr><td></td><td align="left">telefone</td><td align="left">varchar(11)</td></tr>
+        <tr><td>UK</td><td align="left">cnh</td><td align="left">varchar(11)</td></tr>
+        <tr><td></td><td align="left">data_nascimento</td><td align="left">date</td></tr>
+        <tr><td></td><td align="left">criado_em / atualizado_em</td><td align="left">datetime</td></tr>
+      </table>>];
+
+    locacoes [label=<
+      <table border="0" cellborder="1" cellspacing="0" cellpadding="5" color="#B5532F">
+        <tr><td bgcolor="#B5532F" colspan="3"><font color="white"><b>locacoes</b></font></td></tr>
+        <tr><td><b>PK</b></td><td align="left">id</td><td align="left">int</td></tr>
+        <tr><td port="fk_cliente" bgcolor="#FFF4D6"><b>FK</b></td><td align="left" bgcolor="#FFF4D6">cliente_id</td><td align="left" bgcolor="#FFF4D6">int → clientes.id</td></tr>
+        <tr><td port="fk_veiculo" bgcolor="#FFF4D6"><b>FK</b></td><td align="left" bgcolor="#FFF4D6">veiculo_id</td><td align="left" bgcolor="#FFF4D6">int → veiculos.id</td></tr>
+        <tr><td></td><td align="left">data_retirada</td><td align="left">date</td></tr>
+        <tr><td></td><td align="left">data_devolucao_prevista</td><td align="left">date</td></tr>
+        <tr><td></td><td align="left">data_devolucao_real</td><td align="left">date (nulo até devolver)</td></tr>
+        <tr><td></td><td align="left">quilometragem_inicial / final</td><td align="left">int</td></tr>
+        <tr><td></td><td align="left">valor_diaria</td><td align="left">numeric(10,2)</td></tr>
+        <tr><td></td><td align="left">valor_previsto / valor_total</td><td align="left">numeric(10,2)</td></tr>
+        <tr><td></td><td align="left">status</td><td align="left">ativa | finalizada | cancelada</td></tr>
+        <tr><td></td><td align="left">observacoes</td><td align="left">text</td></tr>
+        <tr><td></td><td align="left">criado_em / atualizado_em</td><td align="left">datetime</td></tr>
+      </table>>];
+
+    categorias:pk:e -> veiculos:fk_categoria:w [label="1 : N\npossui"];
+    veiculos:pk:e   -> locacoes:fk_veiculo:w   [label="1 : N\né alugado em"];
+    clientes:pk:e   -> locacoes:fk_cliente:w   [label="1 : N\nrealiza"];
+
+    { rank=same; veiculos; clientes; }
+}
