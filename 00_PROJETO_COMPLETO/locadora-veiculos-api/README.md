@@ -8,13 +8,12 @@ API REST de uma **locadora de veículos**, desenvolvida com **FastAPI**, **SQLAl
 
 | Nome | Matrícula | Parte no projeto |
 |------|-----------|------------------|
-| _Integrante 1_ | _000000_ | Configuração do projeto e banco (`app/core`) |
-| _Integrante 2_ | _000000_ | Modelos e relacionamentos (`app/models`) |
-| _Integrante 3_ | _000000_ | Migrações (`alembic/`) |
-| _Integrante 4_ | _000000_ | Schemas Pydantic (`app/schemas`) |
-| _Integrante 5_ | _000000_ | Regras de negócio e endpoints (`app/services`, `app/routers`) |
-| _Integrante 6_ | _000000_ | Testes e documentação (`tests/`, `README.md`) |
-
+|   Daniel Silva de Araujo Loiola | 01830392 | Configuração do projeto e banco (`app/core`) |
+|   Tarcísio de Brito Alves | 01846776 | Modelos e relacionamentos (`app/models`) |
+|   Wallace Caio Araujo de Almeida | 01790927 | Migrações (`alembic/`) |
+|   Breno Masullo de Araujo | 01779221 | Schemas Pydantic (`app/schemas`) |
+|   Mykael Da Silva Porto | 01797815 | Regras de negócio e endpoints (`app/services`, `app/routers`) |
+|   João Pedro Braga Dionísio | 01809527 | Testes e documentação (`tests/`, `README.md`) |
 ---
 
 ## Sumário
